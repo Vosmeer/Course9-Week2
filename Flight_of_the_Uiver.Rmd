@@ -1,0 +1,67 @@
+---
+title: "Flight of the Uiver 2.0"
+author: "Michel Mariën"
+date: "5 november 2018"
+output: html_document
+---
+#### Setup
+
+```{r setup, include=TRUE,echo = TRUE,warning=FALSE,message=FALSE}
+
+library(leaflet)
+
+```
+
+#### Flight data
+
+Supplying the flight data of the Uiver
+
+```{r Flight data, include=TRUE,echo = TRUE,results='hide',warning=FALSE,message=FALSE}
+
+Kolommen<-c("Plaatsnaam","Datum","Dagno.","Lengtegraad","Breedtegraad","Kleur","Omschrijving")
+locatie1<-c("Suffolk","20-10-1934",1,52.18725,0.97078,"Green","Starting point")
+locatie2<-c("Rome","20-10-1934",1,41.90278,12.49637,"Yellow","Refueling point")
+locatie3<-c("Athene","20-10-1934",2,37.98381,23.72754,"Yellow","Refueling point")
+locatie4<-c("Aleppo","20-10-1934",2,52.18725,0.97078,"Yellow","Refueling point")
+locatie5<-c("Bagdad","20-10-1934",2,33.34058,44.40088,"Blue","Mandatory checkpoint")
+locatie6<-c("Jask","21-10-1934",2,25.65770,57.78567,"Yellow","Refueling point")
+locatie7<-c("Karachi","21-10-1934",2,24.86073,67.00114,"Yellow","Refueling point")
+locatie8<-c("Allahabad","21-10-1934",2,25.43580,81.84631,"Blue","Mandatory checkpoint")
+locatie9<-c("Calcutta","21-10-1934",2,22.57265,88.36389,"Yellow","Refueling point")
+locatie10<-c("Alor star","21-10-1934",2,6.12480,100.36782,"Yellow","Refueling point")
+locatie11<-c("Singapore","22-10-1934",3,1.35538,103.86774,"Blue","Mandatory checkpoint")
+locatie12<-c("Batavia","22-10-1934",3,-6.17511,106.86504,"Yellow","Refueling point")
+locatie13<-c("Darwin","22-10-1934",3,-12.46344,130.84564,"Blue","Mandatory checkpoint")
+locatie14<-c("Charleville","22-10-1934",3,-26.40206,146.24536,"Blue","Mandatory checkpoint")
+locatie15<-c("Albury","22-10-1934",3,-36.07373 ,146.91354,"Red","Emergency Landing")
+locatie16<-c("Melbourne","23-10-1934",4,-37.81363,144.96306,"Green","Finish")
+
+flightplan<-as.data.frame(rbind(locatie1,locatie2,locatie3,locatie4,locatie5,locatie6,locatie7,
+                                locatie8,locatie9,locatie10,locatie11,locatie12,locatie13,      
+                                locatie14,locatie15,locatie16))
+names(flightplan)<-Kolommen
+
+flightplan[,2]<-as.Date(as.character(flightplan[,2]), "%d-%m-%Y")
+flightplan[,3]<-as.numeric(as.character(flightplan[,3]))
+flightplan[,4]<-as.numeric(as.character(flightplan[,4]))
+flightplan[,5]<-as.numeric(as.character(flightplan[,5]))
+flightplan[,7]<-as.character(flightplan[,7])
+
+```
+
+#### Create map
+
+```{r CreateMap, include=TRUE,echo = TRUE,warning=FALSE,message=FALSE,width=10}
+
+   UiverIcon<-makeIcon(
+    iconUrl = "C:\\_Data\\Mijn Documenten\\R\\Data Science specialization\\Scripts Courses\\Course 9 - Week 2\\Uiver.png",
+  iconWidth = 84 ,iconHeight = 84,
+  iconAnchorX = 42,iconAnchorY = 42
+)
+
+uiver_map<-leaflet() %>% addProviderTiles(providers$Esri.NatGeoWorldMap)
+uiver_map<-uiver_map %>% addMarkers(lat=flightplan[,4],lng=flightplan[,5],icon=UiverIcon,popup=paste(flightplan[,1],flightplan[,2],flightplan[,7],sep=", ")) 
+
+uiver_map
+
+```
