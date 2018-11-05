@@ -53,13 +53,15 @@ flightplan[,7]<-as.character(flightplan[,7])
 
 ```{r CreateMap, include=TRUE,echo = TRUE,warning=FALSE,message=FALSE,width=10}
 
-   UiverIcon<-makeIcon(
+
+UiverIcon<-makeIcon(
     iconUrl = "C:\\_Data\\Mijn Documenten\\R\\Data Science specialization\\Scripts Courses\\Course 9 - Week 2\\Uiver.png",
   iconWidth = 84 ,iconHeight = 84,
   iconAnchorX = 42,iconAnchorY = 42
 )
 
-uiver_map<-leaflet() %>% addProviderTiles(providers$Esri.NatGeoWorldMap)
+uiver_map<-leaflet() %>% addTiles()
+
 uiver_map<-uiver_map %>% addMarkers(lat=flightplan[,4],lng=flightplan[,5],icon=UiverIcon,popup=paste(flightplan[,1],flightplan[,2],flightplan[,7],sep=", ")) 
 
 uiver_map
