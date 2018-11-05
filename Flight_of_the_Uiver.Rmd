@@ -55,7 +55,7 @@ flightplan[,7]<-as.character(flightplan[,7])
 
 
 UiverIcon<-makeIcon(
-    iconUrl = "C:\\_Data\\Mijn Documenten\\R\\Data Science specialization\\Scripts Courses\\Course 9 - Week 2\\Uiver.png",
+  iconUrl = "https://raw.githubusercontent.com/Vosmeer/Course9-Week2/master/Uiver.png",
   iconWidth = 84 ,iconHeight = 84,
   iconAnchorX = 42,iconAnchorY = 42
 )
